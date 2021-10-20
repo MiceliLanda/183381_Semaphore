@@ -10,21 +10,23 @@ class TenedorFilosofo(threading.Thread):
    
     def hilosFilosofos(self):
         while True:
-            print(f'Filosofo iniciando {self.filosofosNum}  dato: {self.datoTemporal}')
-            time.sleep(2)
-            print("Filosofo ", self.filosofosNum, "pasando tenedor del lado izquierdo")
-            self.tenedores[self.filosofosNum].acquire()
-            time.sleep(2)
-            self.tenedores[self.filosofosNum].release()
-            print("Filosofo ", self.filosofosNum, "recoge tenedor del lado derecho")
-            self.tenedores[self.datoTemporal].acquire()
-            time.sleep(2)
-            print(f'Filosofo {self.filosofosNum} está comiendo ...')
-            self.tenedores[self.datoTemporal].release()
-            print("Filosofo ", self.filosofosNum, "libre derecho")
-            time.sleep(2)
-            print("Filosofo ", self.filosofosNum, "libre izquierdo\n")
-            break
+            try:
+                print(f'Filosofo iniciando {self.filosofosNum}  dato: {self.datoTemporal}')
+                time.sleep(2)
+                print("Filosofo ", self.filosofosNum, "pasando tenedor del lado izquierdo")
+                self.tenedores[self.filosofosNum].acquire()
+                time.sleep(2)
+                self.tenedores[self.filosofosNum].release()
+                print("Filosofo ", self.filosofosNum, "recoge tenedor del lado derecho")
+                self.tenedores[self.datoTemporal].acquire()
+                time.sleep(2)
+                print(f'Filosofo {self.filosofosNum} está comiendo ...')
+                self.tenedores[self.datoTemporal].release()
+                print("Filosofo ", self.filosofosNum, "libre derecho")
+                time.sleep(2)
+                print("Filosofo ", self.filosofosNum, "libre izquierdo\n")
+            finally:
+                break   
 
     def run(self):
         self.hilosFilosofos()
